@@ -1,0 +1,279 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const skills = {
+  "Languages & Frameworks": ["Java", "Python", "TypeScript", "JavaScript", "SQL", "Spring Boot", "Play Framework"],
+  "Cloud & Infrastructure": ["AWS (Kinesis, Managed Flink, Athena)", "Google Cloud Platform (GCP)", "Kubernetes (K8s)", "Terraform", "Pulumi", "CI/CD / IaC"],
+  "Data & Observability": ["Distributed Tracing (OTLP)", "High-Throughput Pipelines", "Elasticsearch", "New Relic", "MySQL", "NoSQL"],
+  "Architecture & AI": ["Distributed Systems Design", "Microservices Architecture", "Generative AI (Google Agent Builder)", "Zero-Downtime Deployments", "TDD"]
+};
+
+const experiences = [
+  {
+    role: "Lead Software Engineer",
+    company: "Appian",
+    period: "Apr 2026 – Present",
+    location: "Chennai, India",
+    techStack: ["Python", "Java", "Kubernetes", "Terraform", "AWS Kinesis", "Managed Flink", "OTLP Distributed Tracing"],
+    highlights: [
+      "Scaled Real-Time Telemetry Pipelines: Architected and operated high-throughput data ingestion pipelines handling 1.8 TB of usage metrics daily across 2,000+ global enterprise deployments using Python, AWS Kinesis, and Managed Flink.",
+      "Enabled Consumption-Based Monetization: Engineered mission-critical usage analytics infrastructure accurately mapping feature-level telemetry to individual enterprise accounts as the foundational data layer for Appian's consumption billing model.",
+      "Led OTLP Distributed Tracing Architecture: Spearheaded end-to-end design and rollout of customer site tracing framework, empowering product teams to identify performance bottlenecks and proactively catch SLA divergences.",
+      "Built Resilient Cloud Infrastructure: Designed and maintained fault-tolerant containerized microservices on AWS utilizing Kubernetes and Terraform, ensuring high availability and strict data durability.",
+      "Drove Engineering Excellence: Owned architectural design reviews, partnered cross-functionally with product stakeholders, and participated in tier-one on-call rotations upholding strict production SLAs."
+    ]
+  },
+  {
+    role: "Lead Consultant – Developer",
+    company: "Thoughtworks",
+    period: "Mar 2022 – Apr 2026",
+    location: "Chennai, India",
+    techStack: ["Java", "Spring Boot", "Adobe Experience Manager (AEM)", "TypeScript", "Python", "Pulumi", "Generative AI", "AWS", "GCP"],
+    highlights: [
+      "Optimized High-Traffic Enterprise Platform: Led technical ownership and performance tuning for thoughtworks.com, improving reliability by ~12% and reducing latency by ~8% through scalable architecture.",
+      "Engineered Generative AI Solutions: Architected and implemented an advanced Generative AI conversational assistant utilizing Google's Agent Builder.",
+      "Directed High-Visibility Zero-Downtime Go-Lives: Orchestrated cross-functional engineering, QA, DevOps, and project teams to execute complex multi-stakeholder product releases with zero downtime.",
+      "Established Advanced Observability & Monitoring: Deployed enterprise monitoring frameworks leveraging New Relic and AWS Athena, cutting incident resolution time by 33% and elevating visibility.",
+      "Delivered Global Technology Publications: Owned and delivered 5+ editions of the Thoughtworks Technology Radar, partnering with global stakeholders to ensure rigorous technical accuracy.",
+      "Mentored Engineering Excellence: Coached and developed 6+ software engineers, driving high technical standards through code reviews, architectural mentorship, and hands-on pair programming."
+    ]
+  },
+  {
+    role: "Senior Software Engineer",
+    company: "91 Digital Web Pvt Limited (SaaSworthy)",
+    period: "Aug 2018 – Mar 2022",
+    location: "Chennai, India",
+    techStack: ["Java", "Spring Boot", "MySQL", "Elasticsearch", "PHP", "Drupal", "JavaScript", "Python", "GCP"],
+    highlights: [
+      "Scaled Platform to 200× Growth: Architected and launched SaaSworthy.com from the ground up as a high-traffic SaaS intelligence platform, scaling infrastructure to achieve 200× organic traffic growth in 3 years under the 91mobiles umbrella.",
+      "Engineered Enterprise Monetization Framework: Designed and delivered a monetization platform that successfully onboarded 15+ enterprise clients within two months of rollout, directly driving recurring revenue.",
+      "Automated Awards Management System: Architected an automated evaluation and recognition engine to assess SaaS products across categories, significantly increasing engagement and brand visibility.",
+      "Accelerated Deployment Velocity: Streamlined cloud infrastructure and deployment pipelines on GCP, cutting release cycles from hours to minutes through automation."
+    ]
+  },
+  {
+    role: "Software Engineer",
+    company: "Xoanon Analytics",
+    period: "Dec 2015 – Feb 2018",
+    location: "Chennai, India",
+    techStack: ["Java", "Play Framework", "JavaScript", "KnockoutJS", "Elasticsearch", "On-Premise"],
+    highlights: [
+      "Optimized Backend Performance & Latency: Developed and maintained robust backend services and APIs in Java and Python, improving application latency by ~25% through optimized algorithms and caching.",
+      "Automated CI/CD & Infrastructure Delivery: Configured and managed virtualized environments and automated CI/CD pipelines, ensuring seamless deployment reliability across engineering teams.",
+      "Modernized Legacy Architecture: Enhanced platform stability and scalability by refactoring legacy components and instituting comprehensive testing frameworks."
+    ]
+  }
+];
+---
+
+<Layout title="Yashwanth Anandan | Lead Software Engineer">
+  <div class="max-w-4xl mx-auto px-6 pt-12 sm:pt-20 space-y-20">
+    
+    <!-- Hero Section -->
+    <section class="space-y-6">
+      <div class="space-y-2">
+        <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+          Yashwanth Anandan
+        </h1>
+        <p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 font-medium">
+          Lead Software Engineer & Distributed Systems Architect
+        </p>
+      </div>
+
+      <p class="text-zinc-700 dark:text-zinc-300 leading-relaxed text-sm sm:text-base max-w-2xl">
+        10 years of experience architecting, scaling, and operating high-performance distributed systems across cloud, data, and AI platforms. Proven track record of designing real-time telemetry pipelines handling terabytes of daily event data, enabling consumption-based billing models, and authoring global editions of the <span class="font-medium text-zinc-900 dark:text-zinc-100">Thoughtworks Technology Radar</span>.
+      </p>
+
+      <!-- Action & Social Links -->
+      <div class="flex flex-wrap items-center gap-3 pt-1 text-xs font-mono">
+        <a
+          href="/resume/Yashwanth_Anandan_Resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 py-1.5 rounded-md bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-medium hover:opacity-90 transition-opacity inline-flex items-center gap-1"
+        >
+          View Resume (PDF) ↗
+        </a>
+        <a
+          href="mailto:yashanandan@gmail.com"
+          class="px-3 py-1.5 rounded-md border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 transition-colors"
+        >
+          Email
+        </a>
+        <a
+          href="https://linkedin.com/in/yashwanth-anandan"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 py-1.5 rounded-md border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 transition-colors"
+        >
+          LinkedIn ↗
+        </a>
+        <a
+          href="/#experience"
+          class="px-3 py-1.5 rounded-md border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 text-zinc-600 dark:text-zinc-400 transition-colors"
+        >
+          View Experience ↓
+        </a>
+      </div>
+    </section>
+
+    <!-- Key Metrics / Numbers -->
+    <section class="grid grid-cols-2 sm:grid-cols-4 gap-4 py-6 border-y border-zinc-200 dark:border-zinc-800/80">
+      <div>
+        <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 font-mono">1.8 TB+</div>
+        <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Daily Telemetry Pipeline</div>
+      </div>
+      <div>
+        <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 font-mono">2,000+</div>
+        <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Enterprise Deployments</div>
+      </div>
+      <div>
+        <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 font-mono">5+ Editions</div>
+        <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">TW Tech Radar Delivered</div>
+      </div>
+      <div>
+        <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 font-mono">10 Years</div>
+        <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Engineering Experience</div>
+      </div>
+    </section>
+
+    <!-- Professional Experience Timeline -->
+    <section id="experience" class="space-y-8 scroll-mt-20">
+      <div class="flex items-baseline justify-between border-b border-zinc-200 dark:border-zinc-800 pb-2">
+        <h2 class="text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">Work Experience</h2>
+        <span class="text-xs font-mono text-zinc-400 dark:text-zinc-500">2015 – Present</span>
+      </div>
+
+      <div class="space-y-10">
+        {experiences.map(exp => (
+          <div class="space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+              <div>
+                <h3 class="text-base font-semibold text-zinc-900 dark:text-zinc-100">
+                  {exp.role} <span class="text-zinc-400 font-normal">at</span> {exp.company}
+                </h3>
+                <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">{exp.location}</span>
+              </div>
+              <span class="text-xs font-mono text-zinc-500 dark:text-zinc-400">
+                {exp.period}
+              </span>
+            </div>
+
+            <!-- Tech stack chips -->
+            <div class="flex flex-wrap gap-1.5 pt-0.5">
+              {exp.techStack.map(t => (
+                <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-zinc-100 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 border border-zinc-200/80 dark:border-zinc-700/60">
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            <!-- Bullet points -->
+            <ul class="space-y-2 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed pt-1">
+              {exp.highlights.map(h => (
+                <li class="flex items-start gap-2">
+                  <span class="text-zinc-400 dark:text-zinc-500 select-none mt-1 text-[10px]">—</span>
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Technical Skills Matrix -->
+    <section id="skills" class="space-y-6 scroll-mt-20">
+      <div class="border-b border-zinc-200 dark:border-zinc-800 pb-2">
+        <h2 class="text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">Technical Skills</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        {Object.entries(skills).map(([category, items]) => (
+          <div class="p-4 rounded-lg bg-zinc-50/70 dark:bg-zinc-900/40 border border-zinc-200/70 dark:border-zinc-800/70 space-y-2.5">
+            <h3 class="text-xs font-mono font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+              {category}
+            </h3>
+            <div class="flex flex-wrap gap-1.5">
+              {items.map(skill => (
+                <span class="px-2 py-0.5 text-xs font-mono rounded bg-white dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700/60">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Recent Writing -->
+    {sortedPosts.length > 0 && (
+      <section class="space-y-6">
+        <div class="flex items-baseline justify-between border-b border-zinc-200 dark:border-zinc-800 pb-2">
+          <h2 class="text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">Featured Writing</h2>
+          <a href="/blog" class="text-xs font-mono text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors">
+            All posts →
+          </a>
+        </div>
+        <div class="space-y-4">
+          {sortedPosts.map(post => (
+            <a
+              href={`/blog/${post.id}`}
+              class="group block p-5 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 bg-white dark:bg-zinc-900/30 transition-all"
+            >
+              <div class="flex items-baseline justify-between gap-2 mb-1.5">
+                <div class="flex items-center gap-2">
+                  <span class="uppercase text-[10px] tracking-wider px-1.5 py-0.5 rounded font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
+                    {post.data.category}
+                  </span>
+                  <h3 class="text-sm sm:text-base font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
+                    {post.data.title}
+                  </h3>
+                </div>
+                <span class="text-xs font-mono text-zinc-400 dark:text-zinc-500 shrink-0">
+                  {post.data.readTime || "5 min"}
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2 leading-relaxed">
+                {post.data.description}
+              </p>
+              <div class="flex flex-wrap gap-1.5 mt-3">
+                {post.data.tags.map(tag => (
+                  <span class="px-1.5 py-0.5 text-[10px] font-mono rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Contact Section -->
+    <section id="contact" class="scroll-mt-20 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+      <div class="space-y-2">
+        <h2 class="text-base font-semibold text-zinc-900 dark:text-zinc-100">Get in Touch</h2>
+        <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 max-w-xl">
+          Always open to discussing distributed systems design, high-scale telemetry pipelines, or engineering leadership.
+        </p>
+        <div class="flex flex-wrap gap-4 pt-2 text-xs font-mono">
+          <a href="mailto:yashanandan@gmail.com" class="text-zinc-900 dark:text-zinc-100 underline underline-offset-4 hover:text-zinc-600 dark:hover:text-zinc-400">
+            yashanandan@gmail.com
+          </a>
+          <span class="text-zinc-300 dark:text-zinc-700">•</span>
+          <a href="https://linkedin.com/in/yashwanth-anandan" target="_blank" rel="noopener noreferrer" class="text-zinc-900 dark:text-zinc-100 underline underline-offset-4 hover:text-zinc-600 dark:hover:text-zinc-400">
+            linkedin.com/in/yashwanth-anandan ↗
+          </a>
+          <span class="text-zinc-300 dark:text-zinc-700">•</span>
+          <span class="text-zinc-500">Chennai, India (IST / UTC+5:30)</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</Layout>

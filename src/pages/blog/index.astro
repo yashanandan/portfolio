@@ -1,0 +1,140 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const engineeringCount = sortedPosts.filter(p => p.data.category === 'engineering').length;
+const lifeCount = sortedPosts.filter(p => p.data.category === 'life').length;
+---
+
+<Layout
+  title="Writing & Notes | Yashwanth Anandan"
+  description="Essays and articles on engineering, distributed systems, and thoughts on life, habits, and mindset."
+>
+  <div class="max-w-3xl mx-auto px-6 pt-12 sm:pt-20 space-y-10">
+    <!-- Header -->
+    <div class="space-y-3 border-b border-zinc-200 dark:border-zinc-800 pb-6">
+      <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
+        Writing & Reflections
+      </h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 max-w-xl leading-relaxed">
+        Technical deep dives into distributed systems and telemetry, alongside personal reflections on habits, patience, and learning.
+      </p>
+
+      <!-- Category Filter Tabs -->
+      <div class="flex items-center gap-2 pt-3">
+        <button
+          data-filter="all"
+          class="filter-tab px-3 py-1 rounded-md text-xs font-mono font-medium bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 transition-colors"
+        >
+          All ({sortedPosts.length})
+        </button>
+        <button
+          data-filter="engineering"
+          class="filter-tab px-3 py-1 rounded-md text-xs font-mono font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors"
+        >
+          Engineering ({engineeringCount})
+        </button>
+        <button
+          data-filter="life"
+          class="filter-tab px-3 py-1 rounded-md text-xs font-mono font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 transition-colors"
+        >
+          Life ({lifeCount})
+        </button>
+      </div>
+    </div>
+
+    <!-- Posts list -->
+    <div id="posts-container" class="space-y-5">
+      {sortedPosts.map(post => (
+        <article
+          data-category={post.data.category}
+          class="post-card p-6 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/30 hover:border-zinc-400 dark:hover:border-zinc-600 transition-all"
+        >
+          <div class="flex items-center justify-between text-xs font-mono text-zinc-400 dark:text-zinc-500 mb-2">
+            <div class="flex items-center gap-2">
+              <span class={`uppercase text-[10px] tracking-wider px-1.5 py-0.5 rounded font-semibold ${
+                post.data.category === 'engineering'
+                  ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300'
+                  : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300'
+              }`}>
+                {post.data.category}
+              </span>
+              <span>•</span>
+              <time datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: 'numeric'
+                })}
+              </time>
+            </div>
+            <span>{post.data.readTime || '5 min read'}</span>
+          </div>
+
+          <a href={`/blog/${post.id}`}>
+            <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
+              {post.data.title}
+            </h2>
+          </a>
+
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mt-2">
+            {post.data.description}
+          </p>
+
+          <div class="flex items-center justify-between mt-5 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
+            <div class="flex flex-wrap gap-1.5">
+              {post.data.tags.map(tag => (
+                <span class="px-1.5 py-0.5 text-[10px] font-mono rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+            <a
+              href={`/blog/${post.id}`}
+              class="text-xs font-mono font-medium text-zinc-900 dark:text-zinc-100 hover:underline"
+            >
+              Read →
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <script is:inline>
+    function setupCategoryFilter() {
+      const tabs = document.querySelectorAll('.filter-tab');
+      const posts = document.querySelectorAll('.post-card');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const filter = tab.getAttribute('data-filter');
+
+          // Update active tab styles
+          tabs.forEach(t => {
+            t.classList.remove('bg-zinc-900', 'dark:bg-zinc-100', 'text-zinc-100', 'dark:text-zinc-900');
+            t.classList.add('text-zinc-600', 'dark:text-zinc-400', 'border', 'border-zinc-200', 'dark:border-zinc-800');
+          });
+          tab.classList.remove('text-zinc-600', 'dark:text-zinc-400', 'border', 'border-zinc-200', 'dark:border-zinc-800');
+          tab.classList.add('bg-zinc-900', 'dark:bg-zinc-100', 'text-zinc-100', 'dark:text-zinc-900');
+
+          // Filter post cards
+          posts.forEach(post => {
+            const category = post.getAttribute('data-category');
+            if (filter === 'all' || category === filter) {
+              post.style.display = 'block';
+            } else {
+              post.style.display = 'none';
+            }
+          });
+        });
+      });
+    }
+
+    setupCategoryFilter();
+    document.addEventListener('astro:after-swap', setupCategoryFilter);
+  </script>
+</Layout>

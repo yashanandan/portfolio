@@ -1,0 +1,18 @@
+{
+  "name": "yashwanth-anandan-portfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "start": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.4",
+    "@tailwindcss/vite": "^4.0.0",
+    "astro": "^7.4.13",
+    "tailwindcss": "^4.0.0"
+  }
+}
